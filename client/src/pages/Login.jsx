@@ -1,19 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { checkSignInData, checkSignUpData } from "../utils/validate";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
+
+// axios.defaults.baseURL = "http://127.0.0.1:4000";
+// axios.defaults.withCredentials = true;
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [redirect, setRedirect] = useState(false);
+
+  const { setUser } = useContext(UserContext);
 
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = () => {
-    // console.log(email.current.value);
-    // console.log(password);
-
     if (isSignIn) {
       const message = checkSignInData(
         email.current.value,
@@ -24,6 +29,22 @@ const Login = () => {
       if (message !== null) return;
 
       // login logic
+      axios
+        .post("/login", {
+          email: email.current.value,
+          password: password.current.value,
+        })
+        .then((res) => {
+          alert("Login Successful.");
+          // sessionStorage.setItem("username", res.data.name);
+          // let userName = sessionStorage.getItem("username");
+          setUser(res.data);
+          // console.log(res);
+          setRedirect(true);
+        })
+        .catch((err) => {
+          alert("Login Failed. Please Try Again Later...");
+        });
     } else {
       const message = checkSignUpData(
         name.current.value,
@@ -42,23 +63,24 @@ const Login = () => {
         password: password.current.value,
       };
 
-      try {
-        axios
-          .post("/register", newUser)
-          .then(() => alert("Registerd Successfully. Now you Can Login..."))
-          .catch((err) => {
-            alert("Registration Failed. Please Try Again Later...");
-            console.log(err);
-          });
-      } catch (err) {
-        alert("Registration Failed. Please Try Again Later...");
-      }
+      axios
+        .post("/register", newUser)
+        .then(() => alert("Registerd Successfully. Now you Can Login..."))
+        .catch((err) => {
+          alert("Registration Failed. Please Try Again Later...");
+          console.log(err);
+        });
     }
   };
 
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
   };
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div className="">
       <form

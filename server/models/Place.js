@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const placeSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -11,8 +12,9 @@ const placeSchema = new mongoose.Schema({
   checkIn: Number,
   checkOut: Number,
   maxGuests: Number,
+  price: Number,
 });
 
 const PlaceModel = mongoose.model("Place", placeSchema);
 
-module.exports = PlaceModel;
+export default PlaceModel;

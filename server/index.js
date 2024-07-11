@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
@@ -11,6 +11,7 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import Place from "./models/Place.js";
 
 // Convert file URL to path
 const __filename = fileURLToPath(import.meta.url);
@@ -126,6 +127,115 @@ app.post("/upload", photosMiddleware.array("photos", 100), (req, res) => {
   }
 
   res.json(uploadedFiles);
+});
+
+app.post("/places", (req, res) => {
+  const { token } = req.cookies;
+
+  const {
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    price,
+  } = req.body;
+
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, (err, userData) => {
+      if (err) throw err;
+
+      Place.create({
+        owner: userData.id,
+        title,
+        address,
+        photos: addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        price,
+      })
+        .then((res) => {
+          res.json(res);
+        })
+        .catch((err) => res.json(err));
+    });
+  } else {
+    res.json(null);
+  }
+});
+
+app.get("/user-places", (req, res) => {
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, (err, userData) => {
+    if (err) throw err;
+    const { id } = userData;
+    Place.find({ owner: id }).then((response) => {
+      res.json(response);
+    });
+  });
+});
+
+app.get("/places/:id", (req, res) => {
+  const { id } = req.params;
+
+  Place.findById(id).then((response) => {
+    res.json(response);
+  });
+});
+
+app.put("/places", (req, res) => {
+  const { token } = req.cookies;
+  const {
+    id,
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+    price,
+  } = req.body;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+
+    const placeDoc = await Place.findById(id);
+    if (userData.id === placeDoc.owner.toString()) {
+      placeDoc.set({
+        title,
+        address,
+        photos: addedPhotos,
+        description,
+        perks,
+        extraInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+        price,
+      });
+
+      await placeDoc.save();
+      res.json("ok");
+    }
+  });
+});
+
+app.get("/places", (req, res) => {
+  Place.find().then((response) => {
+    res.json(response);
+  });
 });
 
 app.listen(4000, () => {

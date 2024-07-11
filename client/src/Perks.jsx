@@ -15,6 +15,7 @@ const Perks = ({ selected, onChange }) => {
     <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-6 mt-2">
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
+          checked={selected.includes("wifi")}
           type="checkbox"
           name="wifi"
           onClick={handleCheckboxClick}
@@ -38,6 +39,7 @@ const Perks = ({ selected, onChange }) => {
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
+          checked={selected.includes("parking")}
           type="checkbox"
           name="parking"
           onClick={handleCheckboxClick}
@@ -60,7 +62,12 @@ const Perks = ({ selected, onChange }) => {
         <span>Free Parking</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="tv" onClick={handleCheckboxClick}></input>
+        <input
+          checked={selected.includes("tv")}
+          type="checkbox"
+          name="tv"
+          onClick={handleCheckboxClick}
+        ></input>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -80,6 +87,7 @@ const Perks = ({ selected, onChange }) => {
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
+          checked={selected.includes("pets")}
           type="checkbox"
           name="pets"
           onClick={handleCheckboxClick}
@@ -103,6 +111,7 @@ const Perks = ({ selected, onChange }) => {
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
+          checked={selected.includes("radio")}
           type="checkbox"
           name="radio"
           onClick={handleCheckboxClick}
@@ -126,6 +135,7 @@ const Perks = ({ selected, onChange }) => {
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
+          checked={selected.includes("entrance")}
           type="checkbox"
           name="entrance"
           onClick={handleCheckboxClick}

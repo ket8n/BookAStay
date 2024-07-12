@@ -12,6 +12,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import Place from "./models/Place.js";
+import Booking from "./models/Booking.js";
 
 // Convert file URL to path
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +34,15 @@ app.use(
   })
 );
 // app.use(cors());
+
+const getUserDataFromToken = (req) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      resolve(userData);
+    });
+  });
+};
 
 app.get("/test", (req, res) => {
   res.json("ok");
@@ -236,6 +246,30 @@ app.get("/places", (req, res) => {
   Place.find().then((response) => {
     res.json(response);
   });
+});
+
+app.post("/bookings", async (req, res) => {
+  const userData = await getUserDataFromToken(req);
+  const { name, phone, place, price, checkIn, checkOut, numberOfGuests } =
+    req.body;
+
+  Booking.create({
+    user: userData.id,
+    place,
+    checkIn,
+    checkOut,
+    numberOfGuests,
+    name,
+    phone,
+    price,
+  }).then((response) => {
+    res.json(response);
+  });
+});
+
+app.get("/bookings", async (req, res) => {
+  const userData = await getUserDataFromToken(req);
+  res.json(await Booking.find({ user: userData.id }).populate("place"));
 });
 
 app.listen(4000, () => {

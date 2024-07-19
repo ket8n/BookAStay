@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AccountNav from "../AccountNav";
+import AccountNav from "../components/AccountNav";
 import axios from "axios";
-import PlaceImg from "../PlaceImg";
+import PlaceImg from "../components/PlaceImg";
 import { format, differenceInCalendarDays } from "date-fns";
 import { Link } from "react-router-dom";
-import BookingDates from "../BookingDates";
+import BookingDates from "../components/BookingDates";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);

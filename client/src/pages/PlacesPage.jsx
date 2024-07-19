@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AccountNav from "../AccountNav";
+import AccountNav from "../components/AccountNav";
 import axios from "axios";
-import PlaceImg from "../PlaceImg";
+import PlaceImg from "../components/PlaceImg";
 
 const PlacesPage = () => {
   const [places, setPlaces] = useState([]);
@@ -42,10 +42,10 @@ const PlacesPage = () => {
             <Link
               to={"/account/places/" + place._id}
               key={place._id}
-              className="flex gap-4 cursor-pointer bg-gray-200 rounded-2xl p-4"
+              className="flex gap-4 cursor-pointer bg-gray-200 rounded-2xl p-4 mb-2 relative"
             >
               <div className="w-32 h-32 flex bg-gray-300 grow shrink-0">
-                {place.photos.length > 0 && <PlaceImg place={{ place }} />}
+                {place.photos.length > 0 && <PlaceImg place={place} />}
               </div>
               <div className="grow-0 shrink">
                 <h2 className="text-xl">{place.title}</h2>

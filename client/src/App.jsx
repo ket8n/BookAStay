@@ -3,7 +3,7 @@ import IndexPage from "./pages/IndexPage";
 import Login from "./pages/Login";
 import Layout from "./Layout";
 import axios from "axios";
-import { UserContextProvider } from "./UserContext";
+import { UserContextProvider } from "./contexts/UserContext";
 import ProfilePage from "./pages/ProfilePage";
 import PlacesPage from "./pages/PlacesPage";
 import PlacesFormPage from "./pages/PlacesFormPage";

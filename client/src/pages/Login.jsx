@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { checkSignInData, checkSignUpData } from "../utils/validate";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 // axios.defaults.withCredentials = true;
@@ -113,7 +113,7 @@ const Login = () => {
         ></input>
         <p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p>
         <button
-          className="p-4 my-6 bg-red-600 w-full rounded-lg"
+          className="p-4 my-6 bg-red-600 w-full rounded-lg text-white"
           onClick={handleButtonClick}
         >
           {isSignIn ? "Sign In" : "Sign Up"}

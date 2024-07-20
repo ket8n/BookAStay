@@ -7,7 +7,7 @@ const PhotosUploader = ({ addedPhotos, setAddedPhotos }) => {
   const addPhotoByLink = (e) => {
     e.preventDefault();
     axios
-      .post("/upload-by-link", { link: photoLink })
+      .post("/upload/upload-by-link", { link: photoLink })
       .then((res) => {
         // alert("added photo by link")
         setAddedPhotos((prev) => {

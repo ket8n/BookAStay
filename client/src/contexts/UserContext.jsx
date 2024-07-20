@@ -9,7 +9,7 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!user) {
-      axios.get("/profile").then(({ data }) => {
+      axios.get("/auth/profile").then(({ data }) => {
         // let userName = sessionStorage.getItem("username");
         setUser(data);
         setReady(true);

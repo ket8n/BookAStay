@@ -15,7 +15,7 @@ const ProfilePage = () => {
 
   const handleLogoutBtn = () => {
     axios
-      .post("/logout")
+      .post("/auth/logout")
       .then(() => {
         setRedirect("/");
         setUser(null);

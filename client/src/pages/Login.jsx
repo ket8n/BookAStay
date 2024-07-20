@@ -30,7 +30,7 @@ const Login = () => {
 
       // login logic
       axios
-        .post("/login", {
+        .post("/auth/login", {
           email: email.current.value,
           password: password.current.value,
         })
@@ -64,7 +64,7 @@ const Login = () => {
       };
 
       axios
-        .post("/register", newUser)
+        .post("/auth/register", newUser)
         .then(() => alert("Registerd Successfully. Now you Can Login..."))
         .catch((err) => {
           alert("Registration Failed. Please Try Again Later...");

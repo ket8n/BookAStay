@@ -23,7 +23,11 @@ const Header = () => {
         <span className="font-bold">BookAStay</span>
       </Link>
       <div className="flex border border-gray-300 rounded-full px-4 py-2 shadow-md">
-        <div className="pr-6">Search Destination...</div>
+        <input
+          type="text"
+          className="pr-6"
+          placeholder="Search Destination..."
+        ></input>
         <button className="">
           <svg
             xmlns="http://www.w3.org/2000/svg"

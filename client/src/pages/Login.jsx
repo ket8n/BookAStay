@@ -3,6 +3,7 @@ import { checkSignInData, checkSignUpData } from "../utils/validate";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 // axios.defaults.withCredentials = true;
@@ -36,10 +37,7 @@ const Login = () => {
         })
         .then((res) => {
           alert("Login Successful.");
-          // sessionStorage.setItem("username", res.data.name);
-          // let userName = sessionStorage.getItem("username");
           setUser(res.data);
-          // console.log(res);
           setRedirect(true);
         })
         .catch((err) => {
@@ -72,6 +70,24 @@ const Login = () => {
         });
     }
   };
+
+  function handleLoginSuccess(response) {
+    const tokenId = response.credential; // tokenId should be response.credential
+
+    axios
+      .post("/auth/google-login", { idToken: tokenId })
+      .then((res) => {
+        setUser(res.data);
+        setRedirect(true);
+      })
+      .catch((err) => {
+        console.error("Google login failed:", err);
+      });
+  }
+
+  function handleLoginError(response) {
+    console.error("Login failed:", response.error);
+  }
 
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
@@ -123,6 +139,14 @@ const Login = () => {
             ? "New to StreamVault? Sign Up Now!"
             : "Already registered? Sign In Now!"}
         </p>
+        <div className="">
+          <GoogleLogin
+            clientId={import.meta.env.VITE_GOOGLE_CLIENT_API}
+            buttonText="Login with Google"
+            onSuccess={handleLoginSuccess}
+            onError={handleLoginError}
+          />
+        </div>
       </form>
     </div>
   );

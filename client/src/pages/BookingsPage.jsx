@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import AccountNav from "../components/AccountNav";
 import axios from "axios";
 import PlaceImg from "../components/PlaceImg";
-import { format, differenceInCalendarDays } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import BookingDates from "../components/BookingDates";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     axios.get("/bookings").then((response) => {
@@ -15,10 +15,47 @@ const BookingsPage = () => {
     });
   }, []);
 
+  // if (bookings?.length == 0) {
+  //   return (
+  //     <div>
+  //       <AccountNav />
+  //       <div className="text-center mt-20 ">
+  //         <h1 className="text-3xl mb-4">Looks like you haven't booked yet.</h1>
+  //         <button
+  //           className="bg-red-500 text-white p-2 rounded-lg"
+  //           onClick={() => setRedirect(true)}
+  //         >
+  //           Explore Amazing Places NOW!
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div>
       <AccountNav />
       <div>
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Your previous Trips
+        </h1>
+        {bookings?.length == 0 && (
+          <div className="text-center mt-4">
+            <h1 className="text-2xl mb-4">
+              Looks like you haven't booked yet.
+            </h1>
+            <button
+              className="bg-red-500 text-white p-2 rounded-lg"
+              onClick={() => setRedirect(true)}
+            >
+              Explore Amazing Places NOW!
+            </button>
+          </div>
+        )}
         {bookings?.length > 0 &&
           bookings.map((booking) => (
             <Link

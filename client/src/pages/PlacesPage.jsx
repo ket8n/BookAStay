@@ -35,9 +35,10 @@ const PlacesPage = () => {
           </svg>
           Add New Place
         </Link>
+        <h1 className="text-2xl font-bold mt-2">My Listings</h1>
       </div>
       <div className="mt-4">
-        {places.length > 0 &&
+        {places.length > 0 ? (
           places.map((place) => (
             <Link
               to={"/account/places/" + place._id}
@@ -52,7 +53,12 @@ const PlacesPage = () => {
                 <p className="text-sm mt-2">{place.description}</p>
               </div>
             </Link>
-          ))}
+          ))
+        ) : (
+          <h1 className="text-2xl text-center -mt-2">
+            Looks like you have not listed any place.
+          </h1>
+        )}
       </div>
     </div>
   );

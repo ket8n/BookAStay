@@ -134,10 +134,18 @@ const Login = () => {
         >
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={toggleSignIn}>
-          {isSignIn
-            ? "New to StreamVault? Sign Up Now!"
-            : "Already registered? Sign In Now!"}
+        <p className="py-4 cursor-pointer " onClick={toggleSignIn}>
+          {isSignIn ? (
+            <>
+              New to StreamVault?{" "}
+              <span className="underline font-bold">Sign Up Now!</span>
+            </>
+          ) : (
+            <>
+              Already registered?{" "}
+              <span className="underline font-bold">Sign In Now!</span>
+            </>
+          )}
         </p>
         <div className="">
           <GoogleLogin

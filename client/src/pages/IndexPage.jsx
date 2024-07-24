@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import { Link } from "react-router-dom";
+import Shimmer from "../components/Shimmer";
 
 const IndexPage = () => {
   const [places, setPlaces] = useState([]);
@@ -11,6 +12,10 @@ const IndexPage = () => {
       setPlaces(response.data);
     });
   }, []);
+
+  if (places.length === 0) {
+    return <Shimmer />;
+  }
 
   return (
     <>

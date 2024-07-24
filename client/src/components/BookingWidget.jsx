@@ -9,6 +9,7 @@ const BookingWidget = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,9 +19,10 @@ const BookingWidget = ({ place }) => {
 
   useEffect(() => {
     if (user) {
+      setLoggedIn(true);
       setName(user.name);
     }
-  }, [user.name]);
+  }, [user?.name]);
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
@@ -185,13 +187,24 @@ const BookingWidget = ({ place }) => {
             </div>
           )}
         </div>
-        <button
-          onClick={bookThisPlace}
-          className="bg-red-400 w-full p-2 mt-4 text-white rounded-xl"
-        >
-          Book This Place
-          {numberOfNights > 0 && <span> ₹{numberOfNights * place.price}</span>}
-        </button>
+        {loggedIn ? (
+          <button
+            onClick={bookThisPlace}
+            className="bg-red-400 w-full p-2 mt-4 text-white rounded-xl"
+          >
+            Book This Place
+            {numberOfNights > 0 && (
+              <span> ₹{numberOfNights * place.price}</span>
+            )}
+          </button>
+        ) : (
+          <button
+            onClick={() => setRedirect("/login")}
+            className="bg-red-400 w-full p-2 mt-4 text-white rounded-xl"
+          >
+            Login to Book
+          </button>
+        )}
       </div>
     </div>
   );

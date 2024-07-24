@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/UserContext";
 const Header = () => {
   const { user } = useContext(UserContext);
   return (
-    <header className="flex justify-between">
+    <header className="flex justify-between border-b border-gray-300 pb-6 mb-8">
       <Link to={"/"} className="flex items-center gap-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Header = () => {
           />
         </svg>
 
-        <span className="font-bold">BookAStay</span>
+        <span className="font-bold text-blue-500">BookAStay</span>
       </Link>
       <div className="flex border border-gray-300 rounded-full px-4 py-2 shadow-md">
         <input
@@ -47,7 +47,7 @@ const Header = () => {
       </div>
       <Link
         to={user ? "/account" : "/login"}
-        className="flex items-center border border-gray-300 rounded-full px-4 py-2"
+        className="flex items-center gap-1 border border-gray-300 rounded-full px-4 py-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const Header = () => {
             clipRule="evenodd"
           />
         </svg>
-        {!!user && <div>{user.name}</div>}
+        {!!user ? <div>{user.name}</div> : <div>Login</div>}
         {/* double exclamation -> to make boolean */}
       </Link>
     </header>

@@ -4,6 +4,7 @@ import PhotosUploader from "../components/PhotosUploader";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const PlacesFormPage = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const PlacesFormPage = () => {
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [price, setPrice] = useState(1000);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (!id) return;
@@ -75,20 +77,34 @@ const PlacesFormPage = () => {
       axios
         .put("/places", { id, ...placeData })
         .then(() => {
+          enqueueSnackbar("Placed Updated Successfully.", {
+            variant: "success",
+            autoHideDuration: 2000,
+          });
           setRedirect(true);
         })
         .catch((err) => {
-          alert("Error updating your place.");
+          enqueueSnackbar("Error Updating Place.", {
+            variant: "error",
+            autoHideDuration: 2000,
+          });
         });
     } else {
       // add new place
       axios
         .post("/places", placeData)
         .then(() => {
+          enqueueSnackbar("New Placed Added Successfully.", {
+            variant: "success",
+            autoHideDuration: 2000,
+          });
           setRedirect(true);
         })
         .catch((err) => {
-          alert("Error saving your place.");
+          enqueueSnackbar("Error Adding New Place.", {
+            variant: "error",
+            autoHideDuration: 2000,
+          });
         });
     }
   };

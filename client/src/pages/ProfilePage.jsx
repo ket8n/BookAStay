@@ -4,10 +4,13 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PlacesPage from "./PlacesPage";
 import AccountNav from "../components/AccountNav";
+import { useSnackbar } from "notistack";
 
 const ProfilePage = () => {
   const [redirect, setRedirect] = useState(null);
   const { user, ready, setUser } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
+
   let { subpage } = useParams();
   if (subpage === undefined) {
     subpage = "profile";
@@ -19,8 +22,16 @@ const ProfilePage = () => {
       .then(() => {
         setRedirect("/");
         setUser(null);
+        enqueueSnackbar("Logged Out Successfully.", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
       })
       .catch((err) => {
+        enqueueSnackbar("Failed to Log Out.", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
         console.log(err);
       });
   };

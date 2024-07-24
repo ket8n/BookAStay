@@ -4,6 +4,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { GoogleLogin } from "@react-oauth/google";
+import { useSnackbar } from "notistack";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 // axios.defaults.withCredentials = true;
@@ -12,7 +13,7 @@ const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [redirect, setRedirect] = useState(false);
-
+  const { enqueueSnackbar } = useSnackbar();
   const { setUser } = useContext(UserContext);
 
   const name = useRef(null);
@@ -36,12 +37,18 @@ const Login = () => {
           password: password.current.value,
         })
         .then((res) => {
-          alert("Login Successful.");
           setUser(res.data);
           setRedirect(true);
+          enqueueSnackbar("Logged In Successfully.", {
+            variant: "success",
+            autoHideDuration: 2000,
+          });
         })
         .catch((err) => {
-          alert("Login Failed. Please Try Again Later...");
+          enqueueSnackbar("Incorrect Email/Password.", {
+            variant: "error",
+            autoHideDuration: 2000,
+          });
         });
     } else {
       const message = checkSignUpData(
@@ -63,9 +70,17 @@ const Login = () => {
 
       axios
         .post("/auth/register", newUser)
-        .then(() => alert("Registerd Successfully. Now you Can Login..."))
+        .then(() => {
+          enqueueSnackbar("Registered Successfully, Please Log In again...", {
+            variant: "success",
+            autoHideDuration: 2000,
+          });
+        })
         .catch((err) => {
-          alert("Registration Failed. Please Try Again Later...");
+          enqueueSnackbar("Registration Failed. Please Try Again Later...", {
+            variant: "error",
+            autoHideDuration: 2000,
+          });
           console.log(err);
         });
     }
@@ -79,13 +94,25 @@ const Login = () => {
       .then((res) => {
         setUser(res.data);
         setRedirect(true);
+        enqueueSnackbar("Logged In Successfully.", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
       })
       .catch((err) => {
+        enqueueSnackbar("Log In failed.", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
         console.error("Google login failed:", err);
       });
   }
 
   function handleLoginError(response) {
+    enqueueSnackbar("Log In failed.", {
+      variant: "error",
+      autoHideDuration: 2000,
+    });
     console.error("Login failed:", response.error);
   }
 

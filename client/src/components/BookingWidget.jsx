@@ -4,12 +4,14 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import razorpay_logo from "../assets/razorpay_logo.jpg";
+import { useSnackbar } from "notistack";
 
 const BookingWidget = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [loggedIn, setLoggedIn] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -34,13 +36,15 @@ const BookingWidget = ({ place }) => {
 
   const bookThisPlace = async (e) => {
     if (!user) {
-      alert("Please login to book");
       setRedirect("/login");
       return;
     }
 
     if (!checkIn || !checkOut || !name || !phone) {
-      alert("Enter all fields");
+      enqueueSnackbar("Enter all fields.", {
+        variant: "warning",
+        autoHideDuration: 2000,
+      });
       return;
     }
 
@@ -92,10 +96,17 @@ const BookingWidget = ({ place }) => {
               };
               axios.post("/bookings/create", details).then((response) => {
                 const bookingId = response.data._id;
+                enqueueSnackbar("Booked Successfully.", {
+                  variant: "success",
+                  autoHideDuration: 2000,
+                });
                 setRedirect(`/account/bookings/${bookingId}`);
               });
             } else {
-              alert("Failed to pay");
+              enqueueSnackbar("Failed to pay.", {
+                variant: "error",
+                autoHideDuration: 2000,
+              });
               setRedirect("/");
             }
           } catch (err) {
@@ -116,13 +127,19 @@ const BookingWidget = ({ place }) => {
       };
       const rzp1 = new window.Razorpay(options);
       rzp1.on("payment.failed", function (response) {
-        alert("Payment Failed: " + response.error.description);
+        enqueueSnackbar("Payment Failed: " + response.error.description, {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
         console.error(response);
         setRedirect("/");
       });
       rzp1.open();
     } catch (err) {
-      alert("error occured, check console");
+      enqueueSnackbar("error occured, check console", {
+        variant: "error",
+        autoHideDuration: 2000,
+      });
       console.error(err);
     }
   };
@@ -199,7 +216,13 @@ const BookingWidget = ({ place }) => {
           </button>
         ) : (
           <button
-            onClick={() => setRedirect("/login")}
+            onClick={() => {
+              enqueueSnackbar("Please login to book.", {
+                variant: "info",
+                autoHideDuration: 2000,
+              });
+              setRedirect("/login");
+            }}
             className="bg-red-400 w-full p-2 mt-4 text-white rounded-xl"
           >
             Login to Book

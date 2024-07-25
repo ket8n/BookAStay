@@ -5,6 +5,8 @@ import BookingWidget from "../components/BookingWidget";
 import PlaceGallery from "../components/PlaceGallery";
 import AddressLink from "../components/AddressLink";
 import ShowPerks from "../components/ShowPerks";
+import Map from "../components/Map";
+import getCoordinates from "../utils/getCoordinates";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -19,6 +21,8 @@ const PlacePage = () => {
   }, [id]);
 
   if (!place) return "";
+
+  const coordinates = getCoordinates(place.address);
 
   return (
     <div className="mt-8 bg-gray-100 px-8 pt-8">
@@ -36,13 +40,14 @@ const PlacePage = () => {
           </div>
           <h2 className="font-semibold text-2xl mb-1">Perks</h2>
           <ShowPerks perks={place.perks} />
+          {coordinates && <Map lat={coordinates.lat} lng={coordinates.lng} />}
           Check-In: {place.checkIn}
           <br />
           Check-Out: {place.checkOut}
           <br />
           Max number of guests: {place.maxGuests}
         </div>
-        <div>
+        <div className="sticky top-8 self-start">
           <BookingWidget place={place} />
         </div>
       </div>

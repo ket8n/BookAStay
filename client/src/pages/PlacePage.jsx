@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BookingWidget from "../components/BookingWidget";
 import PlaceGallery from "../components/PlaceGallery";
 import AddressLink from "../components/AddressLink";
+import ShowPerks from "../components/ShowPerks";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -33,6 +34,8 @@ const PlacePage = () => {
             <h2 className="font-semibold text-2xl">Description</h2>
             {place.description}
           </div>
+          <h2 className="font-semibold text-2xl mb-1">Perks</h2>
+          <ShowPerks perks={place.perks} />
           Check-In: {place.checkIn}
           <br />
           Check-Out: {place.checkOut}

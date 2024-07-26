@@ -100,6 +100,33 @@ const BookingWidget = ({ place }) => {
                   variant: "success",
                   autoHideDuration: 2000,
                 });
+
+                // send mail here
+                const mailDetails = {
+                  name,
+                  email: user.email,
+                  title: place.title,
+                  address: place.address,
+                  checkIn,
+                  checkOut,
+                  numberOfGuests,
+                  price: response.data.price,
+                  paymentId: response.data.paymentId,
+                  paymentStatus: response.data.paymentStatus,
+                  paymentTimestamp: response.data.paymentTimestamp,
+                };
+
+                axios
+                  .post("/bookings/send-confirmation", mailDetails)
+                  .then((responseMail) => {
+                    enqueueSnackbar(
+                      `Confirmation Mail Sent to  ${user.email}.`,
+                      {
+                        variant: "default",
+                        autoHideDuration: 2000,
+                      }
+                    );
+                  });
                 setRedirect(`/account/bookings/${bookingId}`);
               });
             } else {

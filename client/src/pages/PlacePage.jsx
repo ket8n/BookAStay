@@ -7,6 +7,7 @@ import AddressLink from "../components/AddressLink";
 import ShowPerks from "../components/ShowPerks";
 import Map from "../components/Map";
 import getCoordinates from "../utils/getCoordinates";
+import { MapOla } from "../components/MapOla";
 
 const PlacePage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const PlacePage = () => {
 
   if (!place) return "";
 
-  const coordinates = getCoordinates(place.address);
+  const coordinates = getCoordinates(place.address, true);
 
   return (
     <div className="mt-8 bg-gray-100 px-8 pt-8">
@@ -40,7 +41,10 @@ const PlacePage = () => {
           </div>
           <h2 className="font-semibold text-2xl mb-1">Perks</h2>
           <ShowPerks perks={place.perks} />
-          {coordinates && <Map lat={coordinates.lat} lng={coordinates.lng} />}
+          {/* {coordinates && <Map lat={coordinates.lat} lng={coordinates.lng} />} */}
+          {coordinates && (
+            <MapOla lat={coordinates.lat} lng={coordinates.lng} />
+          )}
           Check-In: {place.checkIn}
           <br />
           Check-Out: {place.checkOut}

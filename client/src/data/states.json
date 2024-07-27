@@ -1,0 +1,147 @@
+[
+  {
+    "value": "AP",
+    "label": "Andhra Pradesh",
+    "latlng": [15.9129, 79.74]
+  },
+  {
+    "value": "AR",
+    "label": "Arunachal Pradesh",
+    "latlng": [27.0978, 93.0363]
+  },
+  {
+    "value": "AS",
+    "label": "Assam",
+    "latlng": [26.2006, 92.9376]
+  },
+  {
+    "value": "BR",
+    "label": "Bihar",
+    "latlng": [25.0961, 85.3131]
+  },
+  {
+    "value": "CT",
+    "label": "Chhattisgarh",
+    "latlng": [21.2787, 81.8661]
+  },
+  {
+    "value": "GA",
+    "label": "Goa",
+    "latlng": [15.2993, 74.124]
+  },
+  {
+    "value": "GJ",
+    "label": "Gujarat",
+    "latlng": [22.2587, 71.1924]
+  },
+  {
+    "value": "HR",
+    "label": "Haryana",
+    "latlng": [29.0588, 76.0856]
+  },
+  {
+    "value": "HP",
+    "label": "Himachal Pradesh",
+    "latlng": [31.1048, 77.1734]
+  },
+  {
+    "value": "JK",
+    "label": "Jammu and Kashmir",
+    "latlng": [34.2995, 74.7785]
+  },
+  {
+    "value": "JH",
+    "label": "Jharkhand",
+    "latlng": [23.6102, 85.2799]
+  },
+  {
+    "value": "KA",
+    "label": "Karnataka",
+    "latlng": [15.3173, 75.7139]
+  },
+  {
+    "value": "KL",
+    "label": "Kerala",
+    "latlng": [10.8505, 76.2711]
+  },
+  {
+    "value": "MP",
+    "label": "Madhya Pradesh",
+    "latlng": [22.9734, 78.6569]
+  },
+  {
+    "value": "MH",
+    "label": "Maharashtra",
+    "latlng": [19.6632, 75.327]
+  },
+  {
+    "value": "MN",
+    "label": "Manipur",
+    "latlng": [24.8036, 93.9368]
+  },
+  {
+    "value": "ML",
+    "label": "Meghalaya",
+    "latlng": [25.467, 91.3662]
+  },
+  {
+    "value": "MZ",
+    "label": "Mizoram",
+    "latlng": [23.1645, 92.9376]
+  },
+  {
+    "value": "NL",
+    "label": "Nagaland",
+    "latlng": [26.1584, 94.5624]
+  },
+  {
+    "value": "OR",
+    "label": "Odisha",
+    "latlng": [20.9517, 85.0985]
+  },
+  {
+    "value": "PB",
+    "label": "Punjab",
+    "latlng": [30.9008, 75.4572]
+  },
+  {
+    "value": "RJ",
+    "label": "Rajasthan",
+    "latlng": [27.0238, 74.2176]
+  },
+  {
+    "value": "SK",
+    "label": "Sikkim",
+    "latlng": [27.5354, 88.5122]
+  },
+  {
+    "value": "TN",
+    "label": "Tamil Nadu",
+    "latlng": [11.1271, 78.6569]
+  },
+  {
+    "value": "TS",
+    "label": "Telangana",
+    "latlng": [17.1232, 79.2085]
+  },
+  {
+    "value": "TR",
+    "label": "Tripura",
+    "latlng": [23.8368, 91.2867]
+  },
+  {
+    "value": "UP",
+    "label": "Uttar Pradesh",
+    "latlng": [26.8467, 80.9462]
+  },
+  {
+    "value": "UT",
+    "label": "Uttarakhand",
+    "latlng": [30.0668, 78.3284]
+  },
+  {
+    "value": "WB",
+    "label": "West Bengal",
+    "latlng": [22.9868, 87.855]
+  }
+]

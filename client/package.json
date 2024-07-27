@@ -15,11 +15,14 @@
     "cookie-parser": "^1.4.6",
     "date-fns": "^3.6.0",
     "leaflet": "^1.9.4",
+    "maplibre-gl": "^4.5.0",
     "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.24.1"
+    "react-map-gl": "^7.1.7",
+    "react-router-dom": "^6.24.1",
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

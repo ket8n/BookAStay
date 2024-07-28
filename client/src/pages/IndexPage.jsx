@@ -3,26 +3,38 @@ import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import { Link } from "react-router-dom";
 import Shimmer from "../components/Shimmer";
+import Header from "../components/Header";
 
 const IndexPage = () => {
   const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     axios.get("/places").then((response) => {
       setPlaces(response.data);
+      setFilteredPlaces(response.data);
     });
   }, []);
-
-  if (places.length === 0) {
-    return <Shimmer />;
-  }
 
   return (
     <>
       {/* <AccountNav /> */}
+      <Header
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setFilteredPlaces={setFilteredPlaces}
+        filteredPlaces={filteredPlaces}
+        places={places}
+      />
+      {places.length === 0 && <Shimmer />}
+      {filteredPlaces.length === 0 && (
+        <h1>No result for place: {searchText}</h1>
+      )}
+
       <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {places.length > 0 &&
-          places.map((place) => (
+        {filteredPlaces.length > 0 &&
+          filteredPlaces.map((place) => (
             <Link key={place._id} to={"/place/" + place._id}>
               <div className="bg-gray-500 mb-2 rounded-2xl flex">
                 {place.photos?.[0] && (

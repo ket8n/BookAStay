@@ -2,8 +2,25 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
-const Header = () => {
+const Header = ({
+  searchText,
+  setSearchText,
+  filteredPlaces,
+  setFilteredPlaces,
+  places,
+}) => {
   const { user } = useContext(UserContext);
+
+  const handleSearch = () => {
+    const currentFilteredPlaces = places.filter(
+      (place) =>
+        place.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        place.address.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    setFilteredPlaces(currentFilteredPlaces);
+  };
+
   return (
     <header className="flex justify-between border-b border-gray-300 pb-6 mb-8">
       <Link to={"/"} className="flex items-center gap-1">
@@ -25,10 +42,14 @@ const Header = () => {
       <div className="flex border border-gray-300 rounded-full px-4 py-2 shadow-md">
         <input
           type="text"
-          className="pr-6"
+          className="pr-16"
           placeholder="Search Destination..."
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
         ></input>
-        <button className="">
+        <button className="" onClick={handleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

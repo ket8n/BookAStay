@@ -12,6 +12,7 @@ import { MapOla } from "../components/MapOla";
 const PlacePage = () => {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
+  const [showAllPhotos, setShowAllPhotos] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -31,38 +32,39 @@ const PlacePage = () => {
 
       <AddressLink>{place.address}</AddressLink>
 
-      <PlaceGallery place={place} />
+      <PlaceGallery place={place} setShowAllPhotos={setShowAllPhotos} />
 
-      <div className="mt-8 mb-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
-        <div>
-          <div className="my-4">
-            <h2 className="font-semibold text-2xl">Description</h2>
-            {place.description}
+      {!showAllPhotos && (
+        <div className="mt-8 mb-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
+          <div>
+            <div className="my-4">
+              <h2 className="font-semibold text-2xl">Description</h2>
+              {place.description}
+            </div>
+            <h2 className="font-semibold text-2xl mb-1">Perks</h2>
+            <ShowPerks perks={place.perks} />
+            {coordinates && <Map lat={coordinates.lat} lng={coordinates.lng} />}
+            <p className="mt-4 text-xl">
+              Max number of guests:{" "}
+              <span className="text-red-600">{place.maxGuests}</span>
+            </p>
           </div>
-          <h2 className="font-semibold text-2xl mb-1">Perks</h2>
-          <ShowPerks perks={place.perks} />
-          {/* {coordinates && <Map lat={coordinates.lat} lng={coordinates.lng} />} */}
-          {coordinates && (
-            <MapOla lat={coordinates.lat} lng={coordinates.lng} />
-          )}
-          Check-In: {place.checkIn}
-          <br />
-          Check-Out: {place.checkOut}
-          <br />
-          Max number of guests: {place.maxGuests}
+          <div className="sticky top-8 self-start">
+            <BookingWidget place={place} />
+          </div>
         </div>
-        <div className="sticky top-8 self-start">
-          <BookingWidget place={place} />
+      )}
+
+      {!showAllPhotos && (
+        <div className="bg-white -mx-8 px-8 py-8 border-t">
+          <div>
+            <h2 className="font-semibold text-2xl">Extra Info</h2>
+          </div>
+          <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">
+            {place.extraInfo}
+          </div>
         </div>
-      </div>
-      <div className="bg-white -mx-8 px-8 py-8 border-t">
-        <div>
-          <h2 className="font-semibold text-2xl">Extra Info</h2>
-        </div>
-        <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">
-          {place.extraInfo}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

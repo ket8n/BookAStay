@@ -24,13 +24,11 @@ const ProfilePage = () => {
         setUser(null);
         enqueueSnackbar("Logged Out Successfully.", {
           variant: "success",
-          autoHideDuration: 2000,
         });
       })
       .catch((err) => {
         enqueueSnackbar("Failed to Log Out.", {
           variant: "error",
-          autoHideDuration: 2000,
         });
         console.log(err);
       });

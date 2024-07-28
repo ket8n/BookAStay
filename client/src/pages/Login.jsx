@@ -41,13 +41,11 @@ const Login = () => {
           setRedirect(true);
           enqueueSnackbar("Logged In Successfully.", {
             variant: "success",
-            autoHideDuration: 2000,
           });
         })
         .catch((err) => {
           enqueueSnackbar("Incorrect Email/Password.", {
             variant: "error",
-            autoHideDuration: 2000,
           });
         });
     } else {
@@ -73,13 +71,11 @@ const Login = () => {
         .then(() => {
           enqueueSnackbar("Registered Successfully, Please Log In again...", {
             variant: "success",
-            autoHideDuration: 2000,
           });
         })
         .catch((err) => {
           enqueueSnackbar("Registration Failed. Please Try Again Later...", {
             variant: "error",
-            autoHideDuration: 2000,
           });
           console.log(err);
         });
@@ -96,13 +92,11 @@ const Login = () => {
         setRedirect(true);
         enqueueSnackbar("Logged In Successfully.", {
           variant: "success",
-          autoHideDuration: 2000,
         });
       })
       .catch((err) => {
         enqueueSnackbar("Log In failed.", {
           variant: "error",
-          autoHideDuration: 2000,
         });
         console.error("Google login failed:", err);
       });
@@ -111,7 +105,6 @@ const Login = () => {
   function handleLoginError(response) {
     enqueueSnackbar("Log In failed.", {
       variant: "error",
-      autoHideDuration: 2000,
     });
     console.error("Login failed:", response.error);
   }

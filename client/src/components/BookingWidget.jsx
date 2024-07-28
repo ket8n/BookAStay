@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import razorpay_logo from "../assets/razorpay_logo.jpg";
 import { useSnackbar } from "notistack";
+import Calendor from "./Calendor";
 
 const BookingWidget = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -43,7 +44,6 @@ const BookingWidget = ({ place }) => {
     if (!checkIn || !checkOut || !name || !phone) {
       enqueueSnackbar("Enter all fields.", {
         variant: "warning",
-        autoHideDuration: 2000,
       });
       return;
     }
@@ -98,7 +98,6 @@ const BookingWidget = ({ place }) => {
                 const bookingId = response.data._id;
                 enqueueSnackbar("Booked Successfully.", {
                   variant: "success",
-                  autoHideDuration: 2000,
                 });
 
                 // send mail here
@@ -123,7 +122,6 @@ const BookingWidget = ({ place }) => {
                       `Confirmation Mail Sent to  ${user.email}.`,
                       {
                         variant: "default",
-                        autoHideDuration: 2000,
                       }
                     );
                   });
@@ -132,7 +130,6 @@ const BookingWidget = ({ place }) => {
             } else {
               enqueueSnackbar("Failed to pay.", {
                 variant: "error",
-                autoHideDuration: 2000,
               });
               setRedirect("/");
             }
@@ -156,7 +153,6 @@ const BookingWidget = ({ place }) => {
       rzp1.on("payment.failed", function (response) {
         enqueueSnackbar("Payment Failed: " + response.error.description, {
           variant: "error",
-          autoHideDuration: 2000,
         });
         console.error(response);
         setRedirect("/");
@@ -165,7 +161,6 @@ const BookingWidget = ({ place }) => {
     } catch (err) {
       enqueueSnackbar("error occured, check console", {
         variant: "error",
-        autoHideDuration: 2000,
       });
       console.error(err);
     }
@@ -184,7 +179,7 @@ const BookingWidget = ({ place }) => {
         <div className="border rounded-2xl mt-4">
           <div className="flex">
             <div className="py-3 px-4">
-              <label>Check In: </label>
+              {/* <label>Check In: </label>
               <input
                 type="date"
                 value={checkIn}
@@ -197,7 +192,8 @@ const BookingWidget = ({ place }) => {
                 type="date"
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
-              ></input>
+              ></input> */}
+              <Calendor setCheckOut={setCheckOut} setCheckIn={setCheckIn} />
             </div>
           </div>
           <div className="py-3 px-4 border-t">
@@ -208,6 +204,8 @@ const BookingWidget = ({ place }) => {
               onChange={(e) => setNumberOfGuests(e.target.value)}
               className="border rounded-xl p-2 w-full"
               type="number"
+              min="1"
+              max={place.maxGuests}
             ></input>
           </div>
           {numberOfNights > 0 && (
@@ -246,7 +244,6 @@ const BookingWidget = ({ place }) => {
             onClick={() => {
               enqueueSnackbar("Please login to book.", {
                 variant: "info",
-                autoHideDuration: 2000,
               });
               setRedirect("/login");
             }}

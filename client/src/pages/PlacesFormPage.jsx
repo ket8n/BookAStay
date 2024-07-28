@@ -79,14 +79,12 @@ const PlacesFormPage = () => {
         .then(() => {
           enqueueSnackbar("Placed Updated Successfully.", {
             variant: "success",
-            autoHideDuration: 2000,
           });
           setRedirect(true);
         })
         .catch((err) => {
           enqueueSnackbar("Error Updating Place.", {
             variant: "error",
-            autoHideDuration: 2000,
           });
         });
     } else {
@@ -96,14 +94,12 @@ const PlacesFormPage = () => {
         .then(() => {
           enqueueSnackbar("New Placed Added Successfully.", {
             variant: "success",
-            autoHideDuration: 2000,
           });
           setRedirect(true);
         })
         .catch((err) => {
           enqueueSnackbar("Error Adding New Place.", {
             variant: "error",
-            autoHideDuration: 2000,
           });
         });
     }

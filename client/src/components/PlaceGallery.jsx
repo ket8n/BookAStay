@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 
-const PlaceGallery = ({ place, classNameParam = "" }) => {
-  const [showAllPhotos, setShowAllPhotos] = useState(false);
+const PlaceGallery = ({ place, setShowAllPhotos, classNameParam = "" }) => {
+  const [localShowAllPhotos, setLocalShowAllPhotos] = useState(false);
 
-  if (showAllPhotos) {
+  if (localShowAllPhotos) {
     return (
       <div className="absolute inset-0 bg-black text-white min-h-screen">
         <div className="p-8 bg-black grid gap-4">
           <div>
             <h2 className="text-3xl mr-48">Photos of {place.title}</h2>
             <button
-              onClick={() => setShowAllPhotos(false)}
+              onClick={() => {
+                setLocalShowAllPhotos(false);
+                setShowAllPhotos(false);
+              }}
               className="fixed right-32 top-8 bg-white text-black flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black"
             >
               <svg
@@ -39,6 +42,7 @@ const PlaceGallery = ({ place, classNameParam = "" }) => {
       </div>
     );
   }
+
   return (
     <div className={`relative  + ${classNameParam}`}>
       <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
@@ -46,7 +50,10 @@ const PlaceGallery = ({ place, classNameParam = "" }) => {
           {place.photos?.[0] && (
             <div className="w-[60vw] h-[70vh]">
               <img
-                onClick={() => setShowAllPhotos(true)}
+                onClick={() => {
+                  setLocalShowAllPhotos(true);
+                  setShowAllPhotos(true);
+                }}
                 className="aspect-square cursor-pointer object-cover w-full h-full"
                 src={"http://localhost:4000/uploads/" + place.photos[0]}
                 alt=""
@@ -57,7 +64,10 @@ const PlaceGallery = ({ place, classNameParam = "" }) => {
         <div className="grid  place-items-center">
           {place.photos?.[1] && (
             <img
-              onClick={() => setShowAllPhotos(true)}
+              onClick={() => {
+                setLocalShowAllPhotos(true);
+                setShowAllPhotos(true);
+              }}
               className="aspect-square cursor-pointer object-cover h-[35vh] w-[35vw]"
               src={"http://localhost:4000/uploads/" + place.photos[1]}
               alt=""
@@ -66,7 +76,10 @@ const PlaceGallery = ({ place, classNameParam = "" }) => {
           {place.photos?.[2] && (
             <div className="overflow-hidden">
               <img
-                onClick={() => setShowAllPhotos(true)}
+                onClick={() => {
+                  setLocalShowAllPhotos(true);
+                  setShowAllPhotos(true);
+                }}
                 className="aspect-square cursor-pointer object-cover relative top-2 h-[35vh] w-[35vw]"
                 src={"http://localhost:4000/uploads/" + place.photos[2]}
                 alt=""
@@ -76,7 +89,10 @@ const PlaceGallery = ({ place, classNameParam = "" }) => {
         </div>
       </div>
       <button
-        onClick={() => setShowAllPhotos(true)}
+        onClick={() => {
+          setLocalShowAllPhotos(true);
+          setShowAllPhotos(true);
+        }}
         className="absolute flex gap-1 bottom-2 right-2 py-2 px-4 bg-white rounded-xl shadow-md shadow-gray-500"
       >
         <svg

@@ -41,7 +41,6 @@ const IndexPage = () => {
     });
 
     setCategories(categoriesData.categories);
-    console.log(categories);
   }, []);
 
   useEffect(() => {

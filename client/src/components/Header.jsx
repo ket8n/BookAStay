@@ -8,6 +8,7 @@ const Header = ({
   filteredPlaces,
   setFilteredPlaces,
   places,
+  showSearch = true,
 }) => {
   const { user } = useContext(UserContext);
 
@@ -39,33 +40,35 @@ const Header = ({
 
         <span className="font-bold text-blue-500">BookAStay</span>
       </Link>
-      <div className="flex border border-gray-300 rounded-full px-4 py-2 shadow-md">
-        <input
-          type="text"
-          className="pr-16"
-          placeholder="Search Destination..."
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        ></input>
-        <button className="" onClick={handleSearch}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-        </button>
-      </div>
+      {showSearch && (
+        <div className="flex border border-gray-300 rounded-full px-4 py-2 shadow-md">
+          <input
+            type="text"
+            className="pr-16"
+            placeholder="Search Destination..."
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          ></input>
+          <button className="" onClick={handleSearch}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
       <Link
         to={user ? "/account" : "/login"}
         className="flex items-center gap-1 border border-gray-300 rounded-full px-4 py-2"

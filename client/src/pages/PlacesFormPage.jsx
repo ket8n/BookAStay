@@ -5,11 +5,33 @@ import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import {
+  TropicalIcon,
+  RoomsIcon,
+  NationalparksIcon,
+  AmazingPoolsIcon,
+  AmazingViewsIcon,
+  FarmsIcon,
+  BeachIcon,
+  SkiingIcon,
+} from "../utils/Icons";
+
+const icons = {
+  Tropical: TropicalIcon,
+  Nationalparks: NationalparksIcon,
+  Rooms: RoomsIcon,
+  AmazingPools: AmazingPoolsIcon,
+  AmazingViews: AmazingViewsIcon,
+  Farms: FarmsIcon,
+  Beach: BeachIcon,
+  Skiing: SkiingIcon,
+};
 
 const PlacesFormPage = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
+  const [type, setType] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [description, setDescription] = useState("");
   const [perks, setPerks] = useState([]);
@@ -28,6 +50,7 @@ const PlacesFormPage = () => {
       const { data } = res;
       setTitle(data.title);
       setAddress(data.address);
+      setType(data.type);
       setAddedPhotos(data.photos);
       setDescription(data.description);
       setPerks(data.perks);
@@ -62,6 +85,7 @@ const PlacesFormPage = () => {
     const placeData = {
       title,
       address,
+      type,
       description,
       addedPhotos,
       perks,
@@ -121,6 +145,34 @@ const PlacesFormPage = () => {
           type="text"
           placeholder="title, for example: My lovely home"
         ></input>
+        {preInput("Type", "What's the type of your Place.")}
+        <div className="my-2 flex flex-wrap gap-8">
+          {[
+            "Tropical",
+            "Nationalparks",
+            "Rooms",
+            "AmazingPools",
+            "AmazingViews",
+            "Farms",
+            "Beach",
+            "Skiing",
+          ].map((option) => {
+            const IconComponent = icons[option];
+            return (
+              <label key={option} className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="type"
+                  value={option}
+                  checked={type === option}
+                  onChange={(e) => setType(e.target.value)}
+                  className=""
+                />
+                {IconComponent && <IconComponent />} {option}
+              </label>
+            );
+          })}
+        </div>
         {preInput("Address", "Address for this Place.")}
         <input
           value={address}

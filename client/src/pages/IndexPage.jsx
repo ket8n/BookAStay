@@ -4,18 +4,56 @@ import AccountNav from "../components/AccountNav";
 import { Link } from "react-router-dom";
 import Shimmer from "../components/Shimmer";
 import Header from "../components/Header";
+import categoriesData from "../data/categories.json";
+import {
+  TropicalIcon,
+  RoomsIcon,
+  NationalparksIcon,
+  AmazingPoolsIcon,
+  AmazingViewsIcon,
+  FarmsIcon,
+  BeachIcon,
+  SkiingIcon,
+} from "../utils/Icons";
+
+const icons = {
+  Tropical: TropicalIcon,
+  Nationalparks: NationalparksIcon,
+  Rooms: RoomsIcon,
+  AmazingPools: AmazingPoolsIcon,
+  AmazingViews: AmazingViewsIcon,
+  Farms: FarmsIcon,
+  Beach: BeachIcon,
+  Skiing: SkiingIcon,
+};
 
 const IndexPage = () => {
   const [places, setPlaces] = useState([]);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     axios.get("/places").then((response) => {
       setPlaces(response.data);
       setFilteredPlaces(response.data);
     });
+
+    setCategories(categoriesData.categories);
+    console.log(categories);
   }, []);
+
+  useEffect(() => {
+    // Filter places based on the selected category
+    if (selectedCategory) {
+      setFilteredPlaces(
+        places.filter((place) => place.type === selectedCategory)
+      );
+    } else {
+      setFilteredPlaces(places);
+    }
+  }, [selectedCategory, places]);
 
   return (
     <>
@@ -27,6 +65,35 @@ const IndexPage = () => {
         filteredPlaces={filteredPlaces}
         places={places}
       />
+
+      <div className="my-4 flex justify-center gap-4 overflow-x-auto">
+        <button
+          className={`py-2 px-4 rounded-lg ${
+            !selectedCategory ? "bg-red-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setSelectedCategory("")}
+        >
+          All
+        </button>
+        {categories.map((category) => {
+          const IconComponent = icons[category];
+          return (
+            <button
+              key={category}
+              className={`py-2 flex px-4 gap-2 rounded-lg ${
+                selectedCategory === category
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-200"
+              }`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {IconComponent && <IconComponent />}
+              {category}
+            </button>
+          );
+        })}
+      </div>
+
       {places.length === 0 && <Shimmer />}
       {filteredPlaces.length === 0 && (
         <h1>No result for place: {searchText}</h1>

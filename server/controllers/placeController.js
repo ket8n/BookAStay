@@ -9,6 +9,7 @@ export const createPlace = (req, res) => {
   const {
     title,
     address,
+    type,
     addedPhotos,
     description,
     perks,
@@ -27,6 +28,7 @@ export const createPlace = (req, res) => {
         owner: userData.id,
         title,
         address,
+        type,
         photos: addedPhotos,
         description,
         perks,
@@ -72,6 +74,7 @@ export const updatePlace = (req, res) => {
     id,
     title,
     address,
+    type,
     addedPhotos,
     description,
     perks,
@@ -90,6 +93,7 @@ export const updatePlace = (req, res) => {
       placeDoc.set({
         title,
         address,
+        type,
         photos: addedPhotos,
         description,
         perks,

@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import { debounce } from "../utils/debounce";
 
 const Header = ({
   searchText,
@@ -12,14 +13,21 @@ const Header = ({
 }) => {
   const { user } = useContext(UserContext);
 
-  const handleSearch = () => {
-    const currentFilteredPlaces = places.filter(
-      (place) =>
-        place.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        place.address.toLowerCase().includes(searchText.toLowerCase())
-    );
+  const handleSearch = useCallback(
+    debounce(() => {
+      const currentFilteredPlaces = places.filter(
+        (place) =>
+          place.title.toLowerCase().includes(searchText.toLowerCase()) ||
+          place.address.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredPlaces(currentFilteredPlaces);
+    }, 300),
+    [searchText, places, setFilteredPlaces]
+  );
 
-    setFilteredPlaces(currentFilteredPlaces);
+  const handleInputChange = (e) => {
+    setSearchText(e.target.value);
+    handleSearch();
   };
 
   return (
@@ -47,10 +55,8 @@ const Header = ({
             className="pr-16"
             placeholder="Search Destination..."
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-          ></input>
+            onChange={handleInputChange}
+          />
           <button className="" onClick={handleSearch}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

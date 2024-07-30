@@ -4,6 +4,10 @@ import Layout from "./Layout";
 import UsersPage from "./pages/UsersPage";
 import PropertiesPage from "./pages/PropertiesPage";
 import BookingsPage from "./pages/BookingsPage";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

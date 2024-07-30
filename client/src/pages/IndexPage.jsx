@@ -68,7 +68,9 @@ const IndexPage = () => {
       <div className="my-4 flex justify-center gap-4 overflow-x-auto">
         <button
           className={`py-2 px-4 rounded-lg ${
-            !selectedCategory ? "bg-red-500 text-white" : "bg-gray-200"
+            !selectedCategory
+              ? "bg-gray-800 text-white"
+              : "bg-gray-200 text-gray-700"
           }`}
           onClick={() => setSelectedCategory("")}
         >
@@ -81,8 +83,8 @@ const IndexPage = () => {
               key={category}
               className={`py-2 flex px-4 gap-2 rounded-lg ${
                 selectedCategory === category
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-200"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-700"
               }`}
               onClick={() => setSelectedCategory(category)}
             >

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import IconDashboard from "../assets/icons/IconDashboard";
+import IconUsers from "../assets/icons/IconUsers";
+import IconProperties from "../assets/icons/IconProperties";
+import IconBookings from "../assets/icons/IconBookings";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -12,9 +16,9 @@ const Navbar = () => {
   const linkClasses = (type = null) => {
     let classes = "inline-flex gap-1 py-2 px-6 rounded-full";
     if (type === subpage) {
-      classes += " bg-red-500 text-white";
+      classes += " bg-gray-800 text-white";
     } else {
-      classes += " bg-gray-200";
+      classes += " bg-gray-200 text-gray-700";
     }
     return classes;
   };
@@ -22,16 +26,20 @@ const Navbar = () => {
   return (
     <nav className="py-4 flex justify-center gap-4">
       <Link className={linkClasses("")} to={"/"}>
-        dashboard
+        <IconDashboard />
+        Dashboard
       </Link>
       <Link className={linkClasses("users")} to={"/users"}>
-        users
+        <IconUsers />
+        Users
       </Link>
       <Link className={linkClasses("properties")} to={"/properties"}>
-        properties
+        <IconProperties />
+        Properties
       </Link>
       <Link className={linkClasses("bookings")} to={"/bookings"}>
-        bookings
+        <IconBookings />
+        Bookings
       </Link>
     </nav>
   );

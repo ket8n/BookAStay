@@ -9,6 +9,7 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import uploadPhotoRoutes from "./routes/uploadPhotoRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import adminRoutes from "./routes/adminRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,7 @@ app.use("/auth", authRoutes);
 app.use("/upload", uploadPhotoRoutes);
 app.use("/places", placeRoutes);
 app.use("/bookings", bookingRoutes);
+app.use("/admin", adminRoutes);
 
 export { __filename, __dirname };
 

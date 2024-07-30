@@ -14,6 +14,8 @@ const PlacesFormPage = React.lazy(() => import("./pages/PlacesFormPage"));
 const PlacePage = React.lazy(() => import("./pages/PlacePage"));
 const BookingsPage = React.lazy(() => import("./pages/BookingsPage"));
 const BookingPage = React.lazy(() => import("./pages/BookingPage"));
+const AboutPage = React.lazy(() => import("./pages/AboutPage"));
+const ContactPage = React.lazy(() => import("./pages/ContactPage"));
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -42,6 +44,8 @@ function App() {
                 <Route path="/place/:id" element={<PlacePage />} />
                 <Route path="/account/bookings" element={<BookingsPage />} />
                 <Route path="/account/bookings/:id" element={<BookingPage />} />
+                <Route path="/account/about" element={<AboutPage />} />
+                <Route path="/account/contact" element={<ContactPage />} />
               </Route>
             </Routes>
           </Suspense>
